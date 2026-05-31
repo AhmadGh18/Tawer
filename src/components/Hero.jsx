@@ -38,7 +38,7 @@ export default function Hero() {
         </span>
 
         <h1
-          className="entrance mt-7 text-5xl font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-7xl"
+          className="entrance mt-7 text-5xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-6xl md:text-7xl"
           style={{ animationDelay: '120ms' }}
         >
           {t.hero.headingLead}{' '}
