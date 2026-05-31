@@ -140,20 +140,83 @@ const paths = {
       stroke="none"
     />
   ),
+
+  // Social
+  instagram: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </>
+  ),
+  facebook: (
+    <path
+      d="M13 22v-8h3l1-4h-4V7.5c0-1.1.4-2 2-2h2V2.1C16.5 2 15.4 2 14 2c-3 0-5 1.8-5 5v3H6v4h3v8h4z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+  twitter: (
+    <path
+      d="M18.2 3h2.9l-6.3 7.2L22 21h-5.8l-4.5-5.9L6.4 21H3.5l6.7-7.7L3 3h5.9l4.1 5.4L18.2 3zm-1 16.2h1.6L7.4 4.7H5.7L17.2 19.2z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+  tiktok: (
+    <path
+      d="M16.5 3a5.7 5.7 0 005 3.5v3.4a8.9 8.9 0 01-5-1.5v6.4a6.3 6.3 0 11-6.3-6.3c.4 0 .9 0 1.3.1v3.5a3 3 0 102 2.8V3h3z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+
+  // Verified
+  verified: (
+    <>
+      <path d="M12 2l2.4 1.7 2.9-.3 1.3 2.6 2.6 1.3-.3 2.9L22 12l-1.7 2.4.3 2.9-2.6 1.3-1.3 2.6-2.9-.3L12 22l-2.4-1.7-2.9.3-1.3-2.6-2.6-1.3.3-2.9L2 12l1.7-2.4-.3-2.9 2.6-1.3 1.3-2.6 2.9.3L12 2z" strokeLinejoin="round" />
+      <path d="M8.5 12.5l2.5 2.5L16 9.5" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+
+  // Calendar
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M8 3v4M16 3v4" strokeLinecap="round" />
+    </>
+  ),
+
+  // Microphone
+  microphone: (
+    <>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5 11a7 7 0 0014 0" strokeLinecap="round" />
+      <path d="M12 18v3M9 21h6" strokeLinecap="round" />
+    </>
+  ),
+
+  // Small spark for highlight
+  spark: (
+    <path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l4 4M15 15l4 4M5 19l4-4M15 9l4-4" strokeLinecap="round" />
+  ),
 }
 
-export default function Icon({ name, size = 18, className = '', strokeWidth = 1.8, ...rest }) {
+export default function Icon({ name, size = 18, className = '', strokeWidth = 1.8, filled = false, ...rest }) {
   const node = paths[name]
   if (!node) return null
-  const isFilled = name === 'whatsapp' || name === 'quote'
+  const isFilled = filled || ['whatsapp', 'quote', 'facebook', 'twitter', 'tiktok'].includes(name)
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill={isFilled ? 'currentColor' : 'none'}
-      stroke={isFilled ? undefined : 'currentColor'}
-      strokeWidth={isFilled ? undefined : strokeWidth}
+      stroke={isFilled ? 'currentColor' : 'currentColor'}
+      strokeWidth={isFilled ? 1 : strokeWidth}
+      strokeLinejoin="round"
+      strokeLinecap="round"
       aria-hidden="true"
       className={className}
       {...rest}

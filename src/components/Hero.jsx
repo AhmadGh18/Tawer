@@ -25,6 +25,9 @@ export default function Hero() {
         }}
       />
 
+      {/* Floating context badges — give the hero depth without data overload */}
+      <FloatingContextCards lang={lang} t={t} />
+
       <div className="relative mx-auto flex max-w-5xl flex-col items-center px-5 pt-16 pb-20 text-center sm:pt-24 sm:pb-28">
         <span
           className="entrance inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-white/70 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.18em] uppercase text-violet-700 backdrop-blur"
@@ -83,7 +86,7 @@ export default function Hero() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-cta-gradient px-7 py-4 text-sm font-semibold text-white shadow-pop transition hover:-translate-y-0.5 sm:text-base"
+            className="group relative inline-flex items-center gap-2 rounded-full bg-cta-gradient px-7 py-4 text-sm font-semibold text-white shadow-pop transition hover:-translate-y-0.5 sm:text-base"
           >
             <span>{t.hero.ctaPrimary}</span>
             <Icon
@@ -114,25 +117,122 @@ export default function Hero() {
           ))}
         </ul>
 
-        {/* Stat strip */}
+        {/* Social proof bar */}
         <div
-          className="entrance mt-14 grid w-full max-w-3xl grid-cols-3 divide-x divide-lavender-200 rounded-2xl border border-lavender-200 bg-white/70 px-2 py-4 backdrop-blur rtl:divide-x-reverse"
+          className="entrance mt-14 inline-flex flex-col items-center gap-4 rounded-2xl border border-lavender-200 bg-white/80 px-6 py-4 backdrop-blur sm:flex-row sm:gap-6 sm:py-3"
           style={{ animationDelay: '780ms' }}
         >
-          <Stat value="6" label={lang === 'en' ? 'CEFR levels' : 'مستويات CEFR'} />
-          <Stat value="30" label={lang === 'en' ? 'live sessions' : 'حصة مباشرة'} />
-          <Stat value="100%" label={lang === 'en' ? 'personalized' : 'مخصّصة لك'} />
+          <AvatarGroup codes={t.hero.socialProof.countries} />
+          <div className="h-px w-12 bg-lavender-200 sm:h-8 sm:w-px" />
+          <div className="flex flex-col items-center gap-0.5 sm:items-start">
+            <Stars rating={t.hero.socialProof.rating} />
+            <p className="text-[12px] font-medium text-ink-soft">{t.hero.socialProof.ratingLabel}</p>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-function Stat({ value, label }) {
+function Stars({ rating }) {
   return (
-    <div className="flex flex-col items-center px-2">
-      <span className="text-2xl font-extrabold text-violet-700 sm:text-3xl">{value}</span>
-      <span className="mt-0.5 text-[11px] font-medium uppercase tracking-wider text-ink-soft">{label}</span>
+    <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-0.5 text-violet-500">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <Icon
+            key={i}
+            name="star"
+            size={14}
+            filled
+            className="animate-twinkle"
+            style={{ animationDelay: `${i * 120}ms` }}
+          />
+        ))}
+      </div>
+      <span className="text-sm font-bold text-ink">{rating}</span>
+    </div>
+  )
+}
+
+function AvatarGroup({ codes }) {
+  const colors = [
+    'from-violet-500 to-violet-600',
+    'from-violet-400 to-violet-500',
+    'from-violet-300 to-violet-400',
+    'from-violet-500 to-violet-700',
+  ]
+  return (
+    <div className="flex items-center -space-x-2 rtl:space-x-reverse">
+      {codes.map((code, i) => (
+        <span
+          key={code + i}
+          className={`inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br ${colors[i % colors.length]} text-[10px] font-bold text-white shadow-soft`}
+        >
+          {code}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+function FloatingContextCards({ lang, t }) {
+  // Position decorative cards around the hero — subtle, suggest the product
+  // visually without becoming a data wall.
+  const cards = t.hero.floatingCards
+  // hidden on small screens, shown from md up
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
+      <FloatCard
+        item={cards[0]}
+        className="left-[4%] top-[18%] -rotate-6"
+        delay={900}
+      />
+      <FloatCard
+        item={cards[1]}
+        className="right-[6%] top-[26%] rotate-3"
+        delay={1050}
+      />
+      <FloatCard
+        item={cards[2]}
+        className="left-[7%] bottom-[24%] rotate-3"
+        delay={1200}
+      />
+      <FloatCard item={cards[3]} className="right-[5%] bottom-[30%] -rotate-3" delay={1350} />
+      <FloatCard item={cards[4]} className="left-[14%] bottom-[10%] rotate-6" delay={1500} />
+    </div>
+  )
+}
+
+function FloatCard({ item, className = '', delay = 0 }) {
+  const base =
+    'absolute entrance inline-flex items-center gap-2 rounded-2xl border border-lavender-200 bg-white/95 px-3 py-2 text-xs font-semibold text-violet-700 shadow-soft backdrop-blur'
+
+  if (item.kind === 'level') {
+    return (
+      <div className={`${base} ${className}`} style={{ animationDelay: `${delay}ms` }}>
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-cta-gradient text-[10px] font-bold text-white">
+          {item.label}
+        </span>
+        <span className="text-[11px] text-ink-soft">CEFR</span>
+      </div>
+    )
+  }
+
+  if (item.kind === 'live') {
+    return (
+      <div className={`${base} ${className}`} style={{ animationDelay: `${delay}ms` }}>
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500">
+          <span className="live-pulse absolute inset-0 rounded-full text-violet-500" />
+        </span>
+        <span>{item.label}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`${base} ${className}`} style={{ animationDelay: `${delay}ms` }}>
+      <Icon name={item.icon} size={14} className="text-violet-600" />
+      <span>{item.label}</span>
     </div>
   )
 }

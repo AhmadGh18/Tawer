@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLang } from '../i18n/LanguageContext.jsx'
 import { WHATSAPP_URL } from '../content.js'
 import Icon from './Icon.jsx'
@@ -6,21 +6,41 @@ import Icon from './Icon.jsx'
 export default function Navbar() {
   const { t, lang, toggle } = useLang()
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('top')
 
   const links = [
-    { href: '#services', label: t.nav.services },
-    { href: '#courses', label: t.nav.courses },
-    { href: '#pricing', label: t.nav.pricing },
-    { href: '#testimonials', label: t.nav.testimonials },
-    { href: '#faq', label: t.nav.faq },
-    { href: '#contact', label: t.nav.contact },
+    { href: '#services', id: 'services', label: t.nav.services },
+    { href: '#courses', id: 'courses', label: t.nav.courses },
+    { href: '#pricing', id: 'pricing', label: t.nav.pricing },
+    { href: '#testimonials', id: 'testimonials', label: t.nav.testimonials },
+    { href: '#faq', id: 'faq', label: t.nav.faq },
+    { href: '#contact', id: 'contact', label: t.nav.contact },
   ]
+
+  // Track which section is currently in view
+  useEffect(() => {
+    const ids = ['top', ...links.map((l) => l.id)]
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]) setActive(visible[0].target.id)
+      },
+      { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+    )
+    sections.forEach((s) => io.observe(s))
+    return () => io.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <header className="sticky top-0 z-40 border-b border-lavender-200/70 bg-white/80 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:py-4">
         <a href="#top" className="flex items-center gap-2.5">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cta-gradient font-bold text-white shadow-soft">
+          <span className="brand-mark inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cta-gradient font-bold text-white shadow-soft">
             ط
           </span>
           <span className="flex flex-col leading-tight">
@@ -32,7 +52,11 @@ export default function Navbar() {
         <ul className="hidden items-center gap-7 text-sm font-medium text-ink/80 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a className="transition-colors hover:text-violet-600" href={l.href}>
+              <a
+                className="nav-link py-1 transition-colors hover:text-violet-600"
+                href={l.href}
+                data-active={active === l.id ? 'true' : 'false'}
+              >
                 {l.label}
               </a>
             </li>
@@ -54,7 +78,7 @@ export default function Navbar() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center rounded-full bg-cta-gradient px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:shadow-pop sm:inline-flex"
+            className="hidden items-center rounded-full bg-cta-gradient px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:shadow-pop hover:-translate-y-0.5 sm:inline-flex"
           >
             {t.nav.cta}
           </a>
@@ -79,9 +103,14 @@ export default function Navbar() {
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-ink/80 hover:bg-lavender-100"
+                  className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                    active === l.id ? 'bg-lavender-100 text-violet-700' : 'text-ink/80 hover:bg-lavender-100'
+                  }`}
                 >
-                  {l.label}
+                  <span>{l.label}</span>
+                  {active === l.id && (
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-600" />
+                  )}
                 </a>
               </li>
             ))}

@@ -29,6 +29,18 @@ export const content = {
         { icon: 'layers', label: '6 levels · A1 → C2' },
         { icon: 'star', label: 'Trusted across the Arab world' },
       ],
+      socialProof: {
+        rating: '4.9',
+        ratingLabel: 'Loved by learners across the Arab world',
+        countries: ['SA', 'LB', 'SY', 'PS'],
+      },
+      floatingCards: [
+        { kind: 'level', label: 'A1' },
+        { kind: 'level', label: 'B2' },
+        { kind: 'level', label: 'C2' },
+        { kind: 'badge', icon: 'verified', label: 'Certified' },
+        { kind: 'live', label: 'Live now' },
+      ],
     },
     valueProp: {
       eyebrow: 'Why Tawer',
@@ -70,6 +82,11 @@ export const content = {
           id: 'group-adults',
           icon: 'users',
           title: 'Group English (Adults)',
+          chips: [
+            { icon: 'clock', label: '30 sessions' },
+            { icon: 'calendar', label: '10 weeks' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'Practice English with peers at your level in a dynamic, interactive group.',
           qa: [
             {
@@ -91,6 +108,11 @@ export const content = {
           id: 'group-kids',
           icon: 'child',
           title: 'Group English (Kids)',
+          chips: [
+            { icon: 'clock', label: '30 sessions' },
+            { icon: 'calendar', label: '10 weeks' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'Fun. Interactive. Goal-focused. A safe space for children to build confidence.',
           qa: [
             {
@@ -112,6 +134,11 @@ export const content = {
           id: 'private',
           icon: 'graduation',
           title: 'One-on-One English',
+          chips: [
+            { icon: 'clock', label: '30 sessions' },
+            { icon: 'calendar', label: '10 weeks' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'A personalized plan, faster fluency, and a dedicated instructor focused entirely on you.',
           qa: [
             {
@@ -133,6 +160,11 @@ export const content = {
           id: 'speaking',
           icon: 'speak',
           title: 'Speaking English',
+          chips: [
+            { icon: 'clock', label: '16 sessions' },
+            { icon: 'calendar', label: '5 weeks' },
+            { icon: 'microphone', label: '3 levels' },
+          ],
           blurb: 'Talk more. Understand better. Build fluency through real-life conversation.',
           qa: [
             {
@@ -154,6 +186,11 @@ export const content = {
           id: 'business',
           icon: 'briefcase',
           title: 'Business English',
+          chips: [
+            { icon: 'clock', label: '24 lessons' },
+            { icon: 'calendar', label: '8 weeks' },
+            { icon: 'layers', label: 'B1+' },
+          ],
           blurb: 'Vocabulary, interviews, resumes, and professional communication with international peers.',
           qa: [
             {
@@ -175,6 +212,11 @@ export const content = {
           id: 'custom',
           icon: 'wand',
           title: 'Customize Your Course',
+          chips: [
+            { icon: 'sparkle', label: 'Bespoke' },
+            { icon: 'clock', label: 'Consultation' },
+            { icon: 'layers', label: 'Any level' },
+          ],
           blurb: 'Start with a consultation, finish with a plan built only for you.',
           qa: [
             {
@@ -193,13 +235,63 @@ export const content = {
       heading: 'Simple, transparent pricing.',
       sub: 'Pay once per course. Free placement test, no hidden fees.',
       perCourse: '/ course',
-      popular: 'Most popular',
+      perHour: '/ hour',
+      popular: 'Best value',
       cta: 'Enroll on WhatsApp',
+      ctaHighlight: 'Start with private',
       items: [
-        { name: 'Group English', price: '$165', hours: '30 hours', highlight: false },
-        { name: 'Private English', price: '$339', hours: '30 hours', highlight: true },
-        { name: 'Speaking English', price: '$149', hours: '16 hours', highlight: false },
-        { name: 'Business English', price: '$179', hours: '24 hours', highlight: false },
+        {
+          name: 'Group English',
+          price: '$165',
+          hours: '30 hours',
+          perHour: '$5.50',
+          highlight: false,
+          features: [
+            'Live group sessions',
+            '6 CEFR levels (A1 — C2)',
+            'Certificate of completion',
+            'Free placement test',
+          ],
+        },
+        {
+          name: 'Private English',
+          price: '$339',
+          hours: '30 hours',
+          perHour: '$11.30',
+          highlight: true,
+          features: [
+            '1-on-1 with a dedicated instructor',
+            'Custom plan built for your goal',
+            'Fastest path to fluency',
+            'Certificate + progress tracking',
+          ],
+        },
+        {
+          name: 'Speaking English',
+          price: '$149',
+          hours: '16 hours',
+          perHour: '$9.30',
+          highlight: false,
+          features: [
+            'Conversation-only focus',
+            'Real-life vocabulary',
+            '3 speaking levels',
+            'Certificate of completion',
+          ],
+        },
+        {
+          name: 'Business English',
+          price: '$179',
+          hours: '24 hours',
+          perHour: '$7.50',
+          highlight: false,
+          features: [
+            'Business vocabulary',
+            'Resume + interview practice',
+            'Pro written + spoken comms',
+            'B1+ entry level',
+          ],
+        },
       ],
     },
     testimonials: {
@@ -211,6 +303,11 @@ export const content = {
       eyebrow: 'FAQ',
       heading: 'Frequently asked questions.',
       sub: "Can't find what you're looking for? Message us on WhatsApp.",
+      rescue: {
+        title: 'Still have questions?',
+        body: "We'll reply on WhatsApp within an hour, usually faster.",
+        cta: 'Chat on WhatsApp',
+      },
       items: [
         {
           q: 'What levels do your English courses cover?',
@@ -262,10 +359,34 @@ export const content = {
     },
     footer: {
       tagline: 'Live online English for Arabic-speaking learners.',
-      sections: {
-        explore: { title: 'Explore', items: ['Services', 'Courses', 'Pricing', 'Stories', 'FAQ'] },
-        contact: { title: 'Contact', items: ['WhatsApp', 'Email', 'Instagram'] },
+      newsletter: {
+        title: 'Get the weekly study tip',
+        body: 'One short email a week — a phrase, an idiom, or a study habit.',
+        placeholder: 'you@example.com',
+        cta: 'Subscribe',
       },
+      sections: {
+        explore: {
+          title: 'Explore',
+          items: [
+            { label: 'Why Tawer', href: '#services' },
+            { label: 'Courses', href: '#courses' },
+            { label: 'Pricing', href: '#pricing' },
+            { label: 'Stories', href: '#testimonials' },
+            { label: 'FAQ', href: '#faq' },
+          ],
+        },
+        company: {
+          title: 'Company',
+          items: [
+            { label: 'About', href: '#services' },
+            { label: 'Contact', href: '#contact' },
+            { label: 'Free placement test', href: '#contact' },
+            { label: 'Customize your course', href: '#courses' },
+          ],
+        },
+      },
+      socialsTitle: 'Follow Tawer',
       rights: 'All rights reserved.',
     },
   },
@@ -296,6 +417,18 @@ export const content = {
         { icon: 'liveDot', label: 'حصص مباشرة' },
         { icon: 'layers', label: '٦ مستويات · A1 إلى C2' },
         { icon: 'star', label: 'موثوقون عبر العالم العربي' },
+      ],
+      socialProof: {
+        rating: '٤٫٩',
+        ratingLabel: 'محبوبون من متعلّمين عبر العالم العربي',
+        countries: ['SA', 'LB', 'SY', 'PS'],
+      },
+      floatingCards: [
+        { kind: 'level', label: 'A1' },
+        { kind: 'level', label: 'B2' },
+        { kind: 'level', label: 'C2' },
+        { kind: 'badge', icon: 'verified', label: 'معتمدة' },
+        { kind: 'live', label: 'مباشر الآن' },
       ],
     },
     valueProp: {
@@ -338,6 +471,11 @@ export const content = {
           id: 'group-adults',
           icon: 'users',
           title: 'دورات إنجليزي جماعية (للكبار)',
+          chips: [
+            { icon: 'clock', label: '٣٠ حصة' },
+            { icon: 'calendar', label: '١٠ أسابيع' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'تعلّم وتدرّب على الإنجليزية ضمن مجموعة من نفس مستواك في بيئة تفاعلية.',
           qa: [
             {
@@ -359,6 +497,11 @@ export const content = {
           id: 'group-kids',
           icon: 'child',
           title: 'دورات إنجليزي جماعية (للأطفال)',
+          chips: [
+            { icon: 'clock', label: '٣٠ حصة' },
+            { icon: 'calendar', label: '١٠ أسابيع' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'ممتعة. تفاعلية. هادفة. مساحة آمنة يبني فيها طفلك ثقته بالإنجليزية.',
           qa: [
             {
@@ -380,6 +523,11 @@ export const content = {
           id: 'private',
           icon: 'graduation',
           title: 'دورات إنجليزي فردية',
+          chips: [
+            { icon: 'clock', label: '٣٠ حصة' },
+            { icon: 'calendar', label: '١٠ أسابيع' },
+            { icon: 'layers', label: 'A1 — C2' },
+          ],
           blurb: 'خطة مخصّصة، طلاقة أسرع، ومدرّس مخصّص لك أنت فقط.',
           qa: [
             {
@@ -401,6 +549,11 @@ export const content = {
           id: 'speaking',
           icon: 'speak',
           title: 'دورة المحادثة',
+          chips: [
+            { icon: 'clock', label: '١٦ حصة' },
+            { icon: 'calendar', label: '٥ أسابيع' },
+            { icon: 'microphone', label: '٣ مستويات' },
+          ],
           blurb: 'تحدّث أكثر. افهم أفضل. ابنِ طلاقتك من خلال محادثات حقيقية.',
           qa: [
             {
@@ -419,6 +572,11 @@ export const content = {
           id: 'business',
           icon: 'briefcase',
           title: 'إنجليزي للأعمال',
+          chips: [
+            { icon: 'clock', label: '٢٤ حصة' },
+            { icon: 'calendar', label: '٨ أسابيع' },
+            { icon: 'layers', label: 'B1+' },
+          ],
           blurb: 'مفردات الأعمال، المقابلات، السيرة الذاتية، والتواصل المهني مع زملاء دوليين.',
           qa: [
             {
@@ -437,6 +595,11 @@ export const content = {
           id: 'custom',
           icon: 'wand',
           title: 'صمّم دورتك الخاصة',
+          chips: [
+            { icon: 'sparkle', label: 'مخصّصة' },
+            { icon: 'clock', label: 'جلسة استشارية' },
+            { icon: 'layers', label: 'أي مستوى' },
+          ],
           blurb: 'ابدأ بجلسة استشارية، وانتهِ بخطة مبنية لك أنت فقط.',
           qa: [
             {
@@ -455,13 +618,63 @@ export const content = {
       heading: 'أسعار بسيطة وواضحة.',
       sub: 'دفعة واحدة لكل دورة. اختبار تحديد مستوى مجاني، بدون رسوم خفية.',
       perCourse: '/ الدورة',
-      popular: 'الأكثر طلبًا',
+      perHour: '/ الساعة',
+      popular: 'القيمة الأفضل',
       cta: 'سجّل عبر واتساب',
+      ctaHighlight: 'ابدأ بالدورة الفردية',
       items: [
-        { name: 'إنجليزي جماعي', price: '$165', hours: '٣٠ ساعة', highlight: false },
-        { name: 'إنجليزي فردي', price: '$339', hours: '٣٠ ساعة', highlight: true },
-        { name: 'محادثة إنجليزي', price: '$149', hours: '١٦ ساعة', highlight: false },
-        { name: 'إنجليزي للأعمال', price: '$179', hours: '٢٤ ساعة', highlight: false },
+        {
+          name: 'إنجليزي جماعي',
+          price: '$165',
+          hours: '٣٠ ساعة',
+          perHour: '$5.50',
+          highlight: false,
+          features: [
+            'حصص جماعية مباشرة',
+            '٦ مستويات CEFR (A1 — C2)',
+            'شهادة إتمام',
+            'اختبار تحديد مستوى مجاني',
+          ],
+        },
+        {
+          name: 'إنجليزي فردي',
+          price: '$339',
+          hours: '٣٠ ساعة',
+          perHour: '$11.30',
+          highlight: true,
+          features: [
+            'حصص فردية مع مدرّس مخصّص',
+            'خطة مبنية حول هدفك',
+            'أسرع طريق للطلاقة',
+            'شهادة ومتابعة تطوّر',
+          ],
+        },
+        {
+          name: 'محادثة إنجليزي',
+          price: '$149',
+          hours: '١٦ ساعة',
+          perHour: '$9.30',
+          highlight: false,
+          features: [
+            'تركيز كامل على المحادثة',
+            'مفردات الحياة اليومية',
+            '٣ مستويات محادثة',
+            'شهادة إتمام',
+          ],
+        },
+        {
+          name: 'إنجليزي للأعمال',
+          price: '$179',
+          hours: '٢٤ ساعة',
+          perHour: '$7.50',
+          highlight: false,
+          features: [
+            'مفردات بيئة الأعمال',
+            'كتابة سيرة ذاتية ومقابلات',
+            'تواصل احترافي خطّي وشفهي',
+            'مستوى الدخول B1+',
+          ],
+        },
       ],
     },
     testimonials: {
@@ -473,6 +686,11 @@ export const content = {
       eyebrow: 'الأسئلة الشائعة',
       heading: 'الأسئلة الشائعة.',
       sub: 'لم تجد ما تبحث عنه؟ راسلنا على واتساب.',
+      rescue: {
+        title: 'ما زلت تبحث عن إجابة؟',
+        body: 'سنردّ عليك على واتساب خلال ساعة، وعادةً أسرع.',
+        cta: 'تحدّث معنا على واتساب',
+      },
       items: [
         {
           q: 'ما هي المستويات التي تقدمونها في دورات اللغة الإنجليزية؟',
@@ -524,10 +742,34 @@ export const content = {
     },
     footer: {
       tagline: 'دورات إنجليزية مباشرة للناطقين بالعربية.',
-      sections: {
-        explore: { title: 'استكشف', items: ['الخدمات', 'الدورات', 'الأسعار', 'آراء الطلاب', 'الأسئلة الشائعة'] },
-        contact: { title: 'تواصل', items: ['واتساب', 'البريد الإلكتروني', 'إنستغرام'] },
+      newsletter: {
+        title: 'احصل على نصيحة الأسبوع',
+        body: 'بريد قصير أسبوعيًا — تعبير، مصطلح، أو عادة دراسية.',
+        placeholder: 'you@example.com',
+        cta: 'اشترك',
       },
+      sections: {
+        explore: {
+          title: 'استكشف',
+          items: [
+            { label: 'لماذا طور', href: '#services' },
+            { label: 'الدورات', href: '#courses' },
+            { label: 'الأسعار', href: '#pricing' },
+            { label: 'آراء الطلاب', href: '#testimonials' },
+            { label: 'الأسئلة الشائعة', href: '#faq' },
+          ],
+        },
+        company: {
+          title: 'الأكاديمية',
+          items: [
+            { label: 'من نحن', href: '#services' },
+            { label: 'تواصل معنا', href: '#contact' },
+            { label: 'اختبار تحديد مستوى مجاني', href: '#contact' },
+            { label: 'صمّم دورتك', href: '#courses' },
+          ],
+        },
+      },
+      socialsTitle: 'تابع طور',
       rights: 'جميع الحقوق محفوظة.',
     },
   },
