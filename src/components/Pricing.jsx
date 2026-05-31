@@ -1,5 +1,6 @@
 import { useLang } from '../i18n/LanguageContext.jsx'
 import { WHATSAPP_URL } from '../content.js'
+import Reveal from './Reveal.jsx'
 
 export default function Pricing() {
   const { t } = useLang()
@@ -7,22 +8,25 @@ export default function Pricing() {
   return (
     <section id="pricing" className="bg-white">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:py-24">
-        <div className="max-w-3xl">
+        <Reveal className="max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-violet-600">{t.pricing.eyebrow}</p>
           <h2 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
             {t.pricing.heading}
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-soft sm:text-base">{t.pricing.sub}</p>
-        </div>
+        </Reveal>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {t.pricing.items.map((p) => (
-            <article
+          {t.pricing.items.map((p, i) => (
+            <Reveal
+              as="article"
               key={p.name}
+              delay={i * 110}
+              variant={p.highlight ? 'scale' : 'up'}
               className={`relative flex flex-col rounded-card p-6 transition ${
                 p.highlight
-                  ? 'bg-cta-gradient text-white shadow-pop lg:-translate-y-3 lg:scale-[1.03]'
-                  : 'border border-lavender-200 bg-paper-tint text-ink shadow-soft'
+                  ? 'bg-cta-gradient text-white shadow-pop lg:scale-[1.03] lg:-translate-y-3 hover:lg:-translate-y-4'
+                  : 'border border-lavender-200 bg-paper-tint text-ink shadow-soft hover:-translate-y-1 hover:shadow-pop'
               }`}
             >
               {p.highlight && (
@@ -52,7 +56,7 @@ export default function Pricing() {
               >
                 {t.pricing.cta}
               </a>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>

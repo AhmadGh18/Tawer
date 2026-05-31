@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLang } from '../i18n/LanguageContext.jsx'
 import { CONTACT_EMAIL, WHATSAPP_URL } from '../content.js'
 import Icon from './Icon.jsx'
+import Reveal from './Reveal.jsx'
 
 export default function Contact() {
   const { t, lang } = useLang()
@@ -21,7 +22,7 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-cta-gradient text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:py-24 lg:grid-cols-2 lg:gap-16">
-        <div>
+        <Reveal variant="left">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-lavender-200">{t.contact.eyebrow}</p>
           <h2 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
             {t.contact.heading}
@@ -32,7 +33,7 @@ export default function Contact() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-violet-700 shadow-pop transition hover:bg-lavender-100 sm:text-base"
+            className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-violet-700 shadow-pop transition hover:-translate-y-0.5 hover:bg-lavender-100 sm:text-base"
           >
             <Icon name="whatsapp" size={18} />
             <span>{t.contact.whatsapp}</span>
@@ -54,13 +55,13 @@ export default function Contact() {
               {lang === 'en' ? 'Online · Worldwide' : 'دورات أونلاين · حول العالم'}
             </li>
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="rounded-card bg-white p-6 text-ink shadow-pop sm:p-8">
+        <Reveal variant="right" delay={150} className="rounded-card bg-white p-6 text-ink shadow-pop sm:p-8">
           <h3 className="text-lg font-bold">{t.contact.formTitle}</h3>
 
           {sent ? (
-            <div className="mt-6 rounded-xl bg-lavender-100 p-5 text-violet-700">
+            <div className="entrance mt-6 rounded-xl bg-lavender-100 p-5 text-violet-700">
               <p className="font-semibold">{t.contact.submit}</p>
               <p className="mt-1 text-sm">
                 {lang === 'en'
@@ -89,18 +90,18 @@ export default function Contact() {
                   rows={4}
                   required
                   placeholder={t.contact.placeholders.message}
-                  className="mt-1.5 w-full rounded-xl border border-lavender-200 bg-paper-tint px-4 py-3 text-sm outline-none transition focus:border-violet-500 focus:bg-white"
+                  className="mt-1.5 w-full rounded-xl border border-lavender-200 bg-paper-tint px-4 py-3 text-sm outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/15"
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full bg-cta-gradient px-5 py-3 text-sm font-semibold text-white transition hover:shadow-pop"
+                className="inline-flex items-center justify-center rounded-full bg-cta-gradient px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-pop"
               >
                 {t.contact.submit}
               </button>
             </form>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -118,7 +119,7 @@ function Field({ label, name, type = 'text', placeholder, required }) {
         type={type}
         placeholder={placeholder}
         required={required}
-        className="mt-1.5 w-full rounded-xl border border-lavender-200 bg-paper-tint px-4 py-3 text-sm outline-none transition focus:border-violet-500 focus:bg-white"
+        className="mt-1.5 w-full rounded-xl border border-lavender-200 bg-paper-tint px-4 py-3 text-sm outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/15"
       />
     </div>
   )

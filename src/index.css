@@ -153,6 +153,15 @@ details > summary::-webkit-details-marker {
   animation: soft-pulse 1.8s ease-out infinite;
 }
 
+/* Hide scrollbar on carousel tracks while preserving scroll */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
