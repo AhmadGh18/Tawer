@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  /* Lavender / purple primary palette */
+  --color-lavender-50: #f7f6fd;
+  --color-lavender-100: #eeedfb;
+  --color-lavender-200: #e5e6fa;
+  --color-lavender-300: #d2c8f0;
+  --color-lavender-400: #b89ce0;
+
+  --color-violet-300: #b780d8;
+  --color-violet-400: #9253c2;
+  --color-violet-500: #7b1fc9;
+  --color-violet-600: #6a0dad;
+  --color-violet-700: #57098f;
+  --color-violet-800: #410572;
+  --color-violet-900: #2a0150;
+
+  /* Neutral ink + surface */
+  --color-ink: #1b1330;
+  --color-ink-soft: #4a3c66;
+  --color-paper: #ffffff;
+  --color-paper-tint: #faf9ff;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-arabic: "Tajawal", "Cairo", "Segoe UI", Tahoma, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+
+  --shadow-soft: 0 10px 30px -12px rgba(106, 13, 173, 0.18);
+  --shadow-pop: 0 28px 60px -20px rgba(106, 13, 173, 0.32);
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-paper-tint);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html.font-arabic,
+html.font-arabic body {
+  font-family: var(--font-arabic);
+}
+
+/* Brand gradient utilities */
+.bg-hero-gradient {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(146, 83, 194, 0.22), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 10%, rgba(123, 31, 201, 0.18), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 0% 90%, rgba(229, 230, 250, 0.9), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #faf9ff 100%);
+}
+
+.bg-cta-gradient {
+  background-image: linear-gradient(135deg, #6a0dad 0%, #7b1fc9 55%, #9253c2 100%);
+}
+
+.text-gradient {
+  background-image: linear-gradient(120deg, #6a0dad 0%, #7b1fc9 50%, #9253c2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Smooth anchor scroll */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Custom <details>/<summary> */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+
+/* Floating background orbs */
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -18px, 0) scale(1.04); }
+}
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+.animate-float-slower { animation: float-slow 13s ease-in-out infinite; }
+
+/* Hero entrance — stagger via inline animation-delay */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.entrance {
+  opacity: 0;
+  animation: enter-up 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scroll-triggered reveal — toggled via .in-view */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-up { transform: translateY(28px); }
+.reveal-left { transform: translateX(-28px); }
+.reveal-right { transform: translateX(28px); }
+.reveal-scale { transform: scale(0.94); }
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* SVG underline draw — paths use pathLength="1" for clean math */
+.draw-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1300ms cubic-bezier(0.65, 0, 0.35, 1) 600ms forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Subtle gradient sweep on primary CTA */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.bg-cta-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 9s ease-in-out infinite;
+}
+
+/* Pulse for the LIVE dot */
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0; }
+}
+.live-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: soft-pulse 1.8s ease-out infinite;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .draw-line path { stroke-dashoffset: 0 !important; }
+}
