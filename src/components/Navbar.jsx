@@ -36,6 +36,21 @@ export default function Navbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Lock body scroll and close on Escape while the mobile drawer is open.
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    function onKey(e) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
   return (
     <header className="sticky top-0 z-40 border-b border-lavender-200/70 bg-white/80 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:py-4">
@@ -85,9 +100,10 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-lavender-300 text-violet-700 lg:hidden"
-            aria-label="Open menu"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-lavender-300 text-violet-700 transition hover:border-violet-400 lg:hidden"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             <Icon name={open ? 'close' : 'menu'} size={18} />
@@ -95,38 +111,54 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {open && (
-        <div className="border-t border-lavender-200/70 bg-white lg:hidden">
-          <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-3">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                    active === l.id ? 'bg-lavender-100 text-violet-700' : 'text-ink/80 hover:bg-lavender-100'
-                  }`}
-                >
-                  <span>{l.label}</span>
-                  {active === l.id && (
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-600" />
-                  )}
-                </a>
-              </li>
-            ))}
-            <li className="pt-1">
+      {/* Dimmed backdrop — sits below the drawer panel, closes on tap */}
+      <div
+        onClick={() => setOpen(false)}
+        aria-hidden
+        className={`fixed inset-x-0 top-0 bottom-0 -z-10 bg-ink/30 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+          open ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+      />
+
+      {/* Mobile drawer — absolutely positioned BELOW the nav bar, so the
+          sticky header keeps its original height and the hero stays put. */}
+      <div
+        id="mobile-menu"
+        aria-hidden={!open}
+        className={`absolute inset-x-0 top-full overflow-hidden border-b border-lavender-200/70 bg-white shadow-pop transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
+          open ? 'max-h-[80vh] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
+        }`}
+      >
+        <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-3">
+          {links.map((l) => (
+            <li key={l.href}>
               <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="block rounded-lg bg-cta-gradient px-3 py-2.5 text-center text-sm font-semibold text-white"
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                  active === l.id ? 'bg-lavender-100 text-violet-700' : 'text-ink/80 hover:bg-lavender-100'
+                }`}
               >
-                {t.nav.cta}
+                <span>{l.label}</span>
+                {active === l.id && (
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-600" />
+                )}
               </a>
             </li>
-          </ul>
-        </div>
-      )}
+          ))}
+          <li className="pt-1">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className="block rounded-lg bg-cta-gradient px-3 py-2.5 text-center text-sm font-semibold text-white"
+            >
+              {t.nav.cta}
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
   )
 }
